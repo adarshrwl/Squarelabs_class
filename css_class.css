@@ -1,0 +1,51 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  color: red;
+}
+
+body {
+  background-color: lightgrey;
+  color: rebeccapurple;
+}
+h1 {
+  color: #00ff00;
+}
+P {
+  color: rgb(0, 0, 255);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: normal;
+  font: normal 16px;
+  line-height: 1.6em;
+}
+
+.card {
+  width: 400px;
+  height: 100px;
+
+  padding: 20px;
+  border: 3px solid blue;
+  margin: 50px;
+
+  box-sizing: border-box;
+}
+
+.card:hover {
+  background-color: blue;
+  color: white;
+  padding: 10px;
+}
+
+/* .card #idexmp {
+  background-color: white;
+}
+
+#idexmp {
+  color: #000;
+  background-color: #000;
+  border: #000;
+} */
