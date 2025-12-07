@@ -25,14 +25,24 @@ let b = 645;
 
 //ternary operator
 
+//variable
 let age = 18;
 if (age > 18) {
+  //output =bollean true or false
   console.log("You can vote");
 } else if (age < 18) {
   console.log("You cannot vote");
+  //true false
 } else {
   console.log("you are 18");
 }
 // condition? true: false;
 
+//ternary operator
 age > 18 ? console.log("You can vote") : console.log("You cannot vote");
+
+if (age > 18) {
+  console.log("You can vote");
+} else {
+  console.log("You cannot vote");
+}
