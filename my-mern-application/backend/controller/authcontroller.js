@@ -1,5 +1,10 @@
 const login = (req, res) => {
-  res.send("Login Accessed!!");
+  console.log(req.body);
+  res.send("Loginn");
 };
 
-module.exports = { login };
+const register = (req, res) => {
+  res.send("Register!!");
+};
+
+module.exports = { login, register };
