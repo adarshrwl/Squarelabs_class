@@ -8,6 +8,7 @@ const login = (req, res) => {
 
 const register = async (req, res) => {
   //data recieve
+  // checking data
   const { username, email, password, phoneNumber } = req.body;
   //data empty or not ?
   if (!username || !email || !password || !phoneNumber) {
@@ -18,10 +19,16 @@ const register = async (req, res) => {
   if (user) {
     return res.status(400).json({ msg: "User Already Exists!!!" });
   }
-
   //hashing encryption
   const salt = await bcrypt.genSalt(10);
+  //gen salt
+  // 1 -14+
+  //
   const hashedPassword = await bcrypt.hash(password, salt);
+  console.log(hashedPassword);
+  console.log(hashedPassword.length);
+  console.log(password);
+  console.log(password.length);
   //new user
   newUser = new User({
     username,
@@ -36,6 +43,9 @@ const register = async (req, res) => {
     message: "User Sucessfully created",
   });
   //error check
+
+  //data recieve
+  //destructure
 };
 
 module.exports = { login, register };
