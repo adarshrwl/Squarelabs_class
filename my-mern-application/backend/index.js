@@ -5,12 +5,12 @@ const app = express();
 connectDB();
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.get("/health", (req, res) => {
   res.send("Status Okay!!");
 });
 
-const MONGO_URI = process.env.MONGO_URI;
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`Server is running on ${PORT}`);

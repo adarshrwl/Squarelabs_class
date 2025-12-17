@@ -3,9 +3,10 @@ const fs = require("fs");
 const path = require("path");
 
 const addProduct = async (req, res) => {
-  console.log(req.body);
   //desctructure
   const { productName, description, price, sales } = req.body;
+  console.log(req.body);
+  console.log(productName, description, price, sales);
 
   //working with image
   const image = req.file ? `/uploads/${req.file.filename}` : null;
