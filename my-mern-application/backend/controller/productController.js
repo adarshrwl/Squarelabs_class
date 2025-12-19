@@ -40,4 +40,29 @@ const addProduct = async (req, res) => {
   //response
 };
 
-module.exports = addProduct;
+//frontend gives id of product
+const getProductById = async (req, res) => {
+  //find product by id
+  console.log(req.body);
+
+  try {
+    const product = await Product.findById(req.params.id);
+    //check if product exists or not?
+    if (!product) {
+      return res.status(404).json({
+        message: "Product Not found",
+      });
+    }
+    //return status
+    return res.status(200).json(product);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error fetching Products", error: error.message });
+  }
+};
+
+module.exports = {
+  addProduct,
+  getProductById,
+};
