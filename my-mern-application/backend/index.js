@@ -21,6 +21,7 @@ const productroutes = require("./routes/productRoutes");
 app.use("/auth", authroutes);
 app.use("/addProduct", productroutes);
 app.use("/getProductById", productroutes);
+app.use("/updateProduct", productroutes);
 //login api-localhost:5000/auth/login
 //register api-localhost:5000/auth/register
 //add Product api-localhost:5000/addProduct/

@@ -62,7 +62,74 @@ const getProductById = async (req, res) => {
   }
 };
 
+const updateProduct = async (req, res) => {
+  try {
+    console.log(req.body);
+    // req=new data
+    //product=old data
+    const product = await Product.findById(req.params.id);
+    //product=all data
+    if (!product)
+      return res.status(400).json({ messsage: "Product Not Found!!" });
+    //api-localhost:5000/update/id
+    // body
+    // body data
+    const { productName, description, price, sales } = req.body;
+    let image = product.image;
+
+    if (req.file) {
+      //new image check
+      if (product.image) {
+        //old image check
+        const imagePath = path.join(
+          __dirname,
+          "..",
+          product.image.replace(/^\/+/, "")
+          // /->\
+          // new link-\uploads\imagename
+        );
+        // /uploads/imagename
+
+        if (fs.existsSync(imagePath)) {
+          fs.unlinkSync(imagePath);
+        }
+      }
+
+      image = `uploads/${req.file.filename}`;
+    }
+
+    product.productName = productName || product.productName;
+    product.description = description || product.description;
+    product.price = price || product.price;
+    product.sales = sales || product.sales;
+
+    product.image = image;
+
+    const updatedProduct = await product.save();
+    res.status(200).json({
+      message: "Product Updated Sucessfully",
+      product: updatedProduct,
+    });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error Updating Products", error: error.message });
+  }
+};
+
+const deleteProduct = async (req, res) => {
+  //product find by id
+  //if (!product)
+  //exits or not ?
+  //deletion of the image
+  //await product.deleteOne(id)
+  //status
+  //catch
+};
+
 module.exports = {
   addProduct,
   getProductById,
+  updateProduct,
 };
+
