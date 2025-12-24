@@ -1,19 +1,16 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { navbar } from "./common/navbar/navbar";
-import { login } from "./components/login/login";
+import { Navbar } from "./common/navbar/Navbar";
+import { Login } from "./components/login/Login";
+import { Signup } from "./components/signup/Signup";
 
 function App() {
   return (
     <Router>
-      <navbar />
+      <Navbar />
       <Routes>
-        <Route path="/login" element={<login />} />
-        <Route path="/singup" element={<login />} />
-        <Route path="/home" element={<login />} />
-        <Route path="/test" element={<login />} />
-        <Route path="/a" element={<login />} />
-        <Route path="/login" element={<login />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Signup />} />
       </Routes>
     </Router>
   );

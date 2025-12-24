@@ -26,3 +26,11 @@ app.use("/updateProduct", productroutes);
 //register api-localhost:5000/auth/register
 //add Product api-localhost:5000/addProduct/
 //getProductByID -localhost:5000/getProductById/ID
+
+// 2 branches- main/master -testing
+
+// merging with master
+//git checkout master
+// git pull origin master
+//git merge testing(branch -name)
+// git push origin master
