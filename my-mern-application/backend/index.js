@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 require("dotenv").config();
 const connectDB = require("./config/db");
 const app = express();
@@ -10,6 +11,13 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/health", (req, res) => {
   res.send("Status Okay!!");
 });
+
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {

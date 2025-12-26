@@ -3,7 +3,9 @@ const User = require("../models/registerModel");
 
 const login = (req, res) => {
   console.log(req.body);
-  res.send("Loginn");
+  res.status(201).json({
+    message: "Logged in Sucessfully",
+  });
 };
 
 const register = async (req, res) => {

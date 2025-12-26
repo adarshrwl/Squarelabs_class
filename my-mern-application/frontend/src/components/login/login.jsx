@@ -1,6 +1,51 @@
-import React from "react";
+import { useState } from "react";
+import axios from "axios";
 
 export const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   const res = await fetch("http://127.0.0.1:5000/auth/login", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({ email, password }),
+  //   });
+  //   const data = await res.json();
+
+  //   if (res.ok) {
+  //     alert(data.message || "Login successful");
+  //   } else {
+  //     alert(data.message || "Login failed");
+  //   }
+
+  //   console.log(data);
+  // };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const res = await axios.post(
+      "http://127.0.0.1:5000/auth/login",
+      {
+        email,
+        password,
+      },
+      { withCredentials: true }
+    );
+    const data = await res.json();
+
+    console.log(res.data);
+    if (res.ok) {
+      alert(data.message || "Login successful");
+    } else {
+      alert(data.message || "Login failed");
+    }
+  };
   return (
     <div className="container-fluid vh-100 d-flex justify-content-center align-items-center  bg-gradient">
       <div className="card shadow-lg border-0" style={{ width: "600px" }}>
@@ -12,7 +57,7 @@ export const Login = () => {
 
         {/* Body */}
         <div className="card-body p-4">
-          <form>
+          <form onSubmit={handleSubmit}>
             {/* Email */}
             <div className="mb-3">
               <label
@@ -26,6 +71,8 @@ export const Login = () => {
                 className="form-control border-primary"
                 id="email"
                 placeholder="Enter email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
               <div className="form-text text-muted">
                 We'll never share your email with anyone else.
@@ -45,6 +92,8 @@ export const Login = () => {
                 className="form-control border-primary"
                 id="password"
                 placeholder="Enter password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
 
