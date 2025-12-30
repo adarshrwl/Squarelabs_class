@@ -4,7 +4,7 @@ const User = require("../models/registerModel");
 const login = (req, res) => {
   console.log(req.body);
   res.status(201).json({
-    message: "Logged in Sucessfully",
+    msg: "Logged in Sucessfully",
   });
 };
 
@@ -42,7 +42,7 @@ const register = async (req, res) => {
   await newUser.save();
   //response send
   res.status(201).json({
-    message: "User Sucessfully created",
+    msg: "User Sucessfully created",
   });
   //error check
 

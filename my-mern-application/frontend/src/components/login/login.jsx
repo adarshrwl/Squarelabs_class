@@ -5,47 +5,50 @@ export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   const res = await fetch("http://127.0.0.1:5000/auth/login", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({ email, password }),
-  //   });
-  //   const data = await res.json();
-
-  //   if (res.ok) {
-  //     alert(data.message || "Login successful");
-  //   } else {
-  //     alert(data.message || "Login failed");
-  //   }
-
-  //   console.log(data);
-  // };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const res = await axios.post(
-      "http://127.0.0.1:5000/auth/login",
-      {
-        email,
-        password,
+    const res = await fetch("http://127.0.0.1:5000/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-      { withCredentials: true }
-    );
+      body: JSON.stringify({ email, password }),
+    });
     const data = await res.json();
 
-    console.log(res.data);
     if (res.ok) {
       alert(data.message || "Login successful");
     } else {
       alert(data.message || "Login failed");
     }
+
+    console.log(data);
   };
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   try {
+  //     const res = await axios.post(
+  //       "http://127.0.0.1:5000/auth/login",
+  //       { email, password },
+  //       { withCredentials: true }
+  //     );
+  //     const data = res.data; // Axios auto-parses JSON; no .json() needed
+
+  //     console.log(data);
+  //     if (res.status === 200) {
+  //       // Use status for success check
+  //       alert(data.msg || "Login successful"); // Assuming 'message' key; adjust if 'msg'
+  //     } else {
+  //       alert(data.msg || "Login failed");
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //     alert(error.response?.data?.msg || "Login failed");
+  //   }
+  // };
   return (
     <div className="container-fluid vh-100 d-flex justify-content-center align-items-center  bg-gradient">
       <div className="card shadow-lg border-0" style={{ width: "600px" }}>

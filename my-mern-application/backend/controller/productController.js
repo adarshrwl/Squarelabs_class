@@ -21,10 +21,10 @@ const addProduct = async (req, res) => {
 
   //data check
   if (!productName || !description || !price || !sales) {
-    return res.status(400).json({ message: "All Information are required!!" });
+    return res.status(400).json({ msg: "All Information are required!!" });
   }
   if (!image) {
-    return res.status(400).json({ message: " Image is  required!!" });
+    return res.status(400).json({ msg: " Image is  required!!" });
   }
   //new product
   const newProduct = new Product({
@@ -35,7 +35,7 @@ const addProduct = async (req, res) => {
     image,
   });
   const saveProduct = await newProduct.save();
-  res.status(201).json({ message: "Product saved!", saveProduct });
+  res.status(201).json({ msg: "Product saved!", saveProduct });
   //save
   //response
 };
@@ -50,15 +50,13 @@ const getProductById = async (req, res) => {
     //check if product exists or not?
     if (!product) {
       return res.status(404).json({
-        message: "Product Not found",
+        msg: "Product Not found",
       });
     }
     //return status
     return res.status(200).json(product);
   } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Error fetching Products", error: error.message });
+    res.status(500).json({ msg: "Error fetching Products", error: error.msg });
   }
 };
 
@@ -107,16 +105,15 @@ const updateProduct = async (req, res) => {
 
     const updatedProduct = await product.save();
     res.status(200).json({
-      message: "Product Updated Sucessfully",
+      msg: "Product Updated Sucessfully",
       product: updatedProduct,
     });
   } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Error Updating Products", error: error.message });
+    res.status(500).json({ msg: "Error Updating Products", error: error.msg });
   }
 };
 
+const getProudcts = async (req, res) => {};
 const deleteProduct = async (req, res) => {
   //product find by id
   //if (!product)
@@ -131,5 +128,5 @@ module.exports = {
   addProduct,
   getProductById,
   updateProduct,
+  getProudcts,
 };
-
