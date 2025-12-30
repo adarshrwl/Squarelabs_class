@@ -18,9 +18,9 @@ export const Login = () => {
     const data = await res.json();
 
     if (res.ok) {
-      alert(data.message || "Login successful");
+      alert(data.msg || "Login successful");
     } else {
-      alert(data.message || "Login failed");
+      alert(data.msg || "Login failed");
     }
 
     console.log(data);

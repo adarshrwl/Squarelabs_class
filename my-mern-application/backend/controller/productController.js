@@ -1,43 +1,55 @@
 const Product = require("../models/productModel");
 const fs = require("fs");
 const path = require("path");
-
 const addProduct = async (req, res) => {
-  //desctructure
-  const { productName, description, price, sales } = req.body;
-  console.log(req.body);
-  console.log(productName, description, price, sales);
+  try {
+    // Destructure from req.body
+    let { productName, description, price, sales } = req.body;
 
-  //working with image
-  const image = req.file ? `/uploads/${req.file.filename}` : null;
-  //true or false
-  //if else
-  //   let exeimage = null;
-  //   if (req.file) {
-  //     exeimage = `/uploads/${req.file.filename}`;
-  //   } else {
-  //     exeimage = null;
-  //   }
+    // Trim strings to remove spaces
+    productName = productName?.trim();
+    description = description?.trim();
+    price = price?.trim();
+    sales = sales?.trim();
 
-  //data check
-  if (!productName || !description || !price || !sales) {
-    return res.status(400).json({ msg: "All Information are required!!" });
+    // Validate required fields
+    if (!productName || !description || !price || !sales) {
+      return res.status(400).json({ msg: "All information is required!" });
+    }
+
+    // Validate numbers
+    const priceNum = Number(price);
+    const salesNum = Number(sales);
+
+    if (isNaN(priceNum) || isNaN(salesNum)) {
+      return res
+        .status(400)
+        .json({ msg: "Price and Sales must be valid numbers!" });
+    }
+
+    // Validate image
+    if (!req.file) {
+      return res.status(400).json({ msg: "Image is required!" });
+    }
+    const image = `/uploads/${req.file.filename}`;
+
+    // Create new product
+    const newProduct = new Product({
+      productName,
+      description,
+      price: priceNum,
+      sales: salesNum,
+      image,
+    });
+
+    const savedProduct = await newProduct.save();
+
+    // Send response
+    res.status(201).json({ msg: "Product saved!", product: savedProduct });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ msg: "Server Error" });
   }
-  if (!image) {
-    return res.status(400).json({ msg: " Image is  required!!" });
-  }
-  //new product
-  const newProduct = new Product({
-    productName,
-    description,
-    price,
-    sales,
-    image,
-  });
-  const saveProduct = await newProduct.save();
-  res.status(201).json({ msg: "Product saved!", saveProduct });
-  //save
-  //response
 };
 
 //frontend gives id of product

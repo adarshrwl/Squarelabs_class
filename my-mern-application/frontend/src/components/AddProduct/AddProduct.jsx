@@ -22,14 +22,19 @@ export const AddProduct = () => {
         body: formData,
       });
       const data = await res.json();
-      console.log("Product Added:", data);
-      alert(data);
+
+      if (res.ok) {
+        alert(data.msg || "Login successful");
+      } else {
+        alert(data.msg || "Login failed");
+      }
 
       //form empty parna parne hunxa
       setProductName("");
       setDescription("");
       setPrice("");
       setImage(null);
+      setPreview(null);
       setSales("");
     } catch (e) {
       console.error(e);
@@ -118,8 +123,12 @@ export const AddProduct = () => {
                   />
                 </div>
                 {preview && (
-                  <div className="mt-3">
-                    <img src={preview} alt="Preview" />
+                  <div className="mt-3" style={{ maxWidth: "150px" }}>
+                    <img
+                      src={preview}
+                      alt="Preview"
+                      className="img-fluid img-thumbnail"
+                    />
                   </div>
                 )}
 
