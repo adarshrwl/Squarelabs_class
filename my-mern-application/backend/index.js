@@ -4,6 +4,7 @@ require("dotenv").config();
 const connectDB = require("./config/db");
 const app = express();
 connectDB();
+const path = require("path");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -30,10 +31,14 @@ app.use("/auth", authroutes);
 app.use("/addProduct", productroutes);
 app.use("/getProductById", productroutes);
 app.use("/updateProduct", productroutes);
+app.use("/getProducts", productroutes);
+
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
 //login api-localhost:5000/auth/login
 //register api-localhost:5000/auth/register
 //add Product api-localhost:5000/addProduct/
-//getProductByID -localhost:5000/getProductById/ID
+//getProductByID -localhost:5000/getProductById/:ID
 
 // 2 branches- main/master -testing
 

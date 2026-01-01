@@ -11,6 +11,7 @@ const addProduct = async (req, res) => {
     description = description?.trim();
     price = price?.trim();
     sales = sales?.trim();
+    // "" =json -false formdata -true
 
     // Validate required fields
     if (!productName || !description || !price || !sales) {
@@ -125,7 +126,26 @@ const updateProduct = async (req, res) => {
   }
 };
 
-const getProudcts = async (req, res) => {};
+const getProudcts = async (req, res) => {
+  try {
+    const products = await Product.find();
+
+    if (!products || products.length === 0) {
+      return res.status(404).json({ msg: "No products found" });
+    }
+
+    return res.status(200).json({
+      msg: "Products fetched successfully",
+      count: products.length,
+      products,
+    });
+  } catch (error) {
+    console.error(error);
+    return res
+      .status(500)
+      .json({ msg: "Error fetching products", error: error.message });
+  }
+};
 const deleteProduct = async (req, res) => {
   //product find by id
   //if (!product)
