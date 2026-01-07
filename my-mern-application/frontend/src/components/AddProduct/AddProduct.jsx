@@ -1,6 +1,13 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const AddProduct = () => {
+  // const navigate = useNavigate();
+  // const token = localStorage.getItem("token");
+  // if (!token) {
+  //   navigate("/login");
+  // }
+
   const [productName, setProductName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -10,6 +17,15 @@ export const AddProduct = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Unauthorised:Please Login as admin");
+    }
+    const config = {
+      headers: {
+        Authori: `Bearer ${token}`,
+      },
+    };
     const formData = new FormData();
     formData.append("productName", productName);
     formData.append("description", description);

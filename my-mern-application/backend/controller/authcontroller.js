@@ -1,10 +1,53 @@
 const bcrypt = require("bcryptjs");
 const User = require("../models/registerModel");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
+//controller
+//valid check
+//token generation
+//frontend sending
 
-const login = (req, res) => {
+const generateToken = (user) => {
+  return jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET, {
+    expiresIn: "1d",
+  });
+};
+
+//_id=unique
+//email=unique
+//token -unique
+const login = async (req, res) => {
   console.log(req.body);
-  res.status(201).json({
-    msg: "Logged in Sucessfully",
+
+  // Destructure email and password
+  const { email, password } = req.body;
+  // Check if fields are provided
+  if (!email || !password) {
+    return res.status(400).json({ msg: "Email and password are required" });
+  }
+  // Find user by email
+  let user = await User.findOne({ email });
+  if (!user) {
+    return res.status(400).json({ msg: "Invalid email or password" });
+  }
+  // Compare password with hashed password
+  const isMatch = await bcrypt.compare(password, user.password);
+  if (!isMatch) {
+    return res.status(400).json({ msg: "Invalid email or password" });
+  }
+
+  const token = generateToken(user);
+  // Success response
+  res.status(200).json({
+    msg: "Logged in Successfully",
+    token,
+    user: {
+      id: user._id,
+      username: user.username,
+      email: user.email,
+      phoneNumber: user.phoneNumber,
+      role: "admin",
+    },
   });
 };
 

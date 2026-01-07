@@ -1,6 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export const Navbar = () => {
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
+  const handlelogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+  };
+
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -61,6 +75,17 @@ export const Navbar = () => {
                     </a>
                   </li>
                 </ul>
+              </li>
+            </ul>
+            <ul>
+              {user && user.role === "admin" && (
+                <>
+                  <Link to="/addProduct">AddProduct</Link>
+                  <Link to="/addProduct">Edit Product</Link>
+                </>
+              )}
+              <li className="nav-link">
+                <button onClick={handlelogout}>Log-Out</button>
               </li>
             </ul>
             <form className="d-flex" role="search">

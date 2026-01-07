@@ -1,5 +1,6 @@
 const express = require("express");
 const upload = require("../middleware/multer");
+const {adminOnly:admin} = require("../middleware/authMiddleware");
 const {
   addProduct,
   getProductById,
@@ -9,7 +10,7 @@ const {
 
 const router = express.Router();
 
-router.post("/", upload.single("image"), addProduct);
+router.post("/",admin, upload.single("image"), addProduct);
 router.get("/:id", getProductById);
 router.put("/:id", upload.single("image"), updateProduct);
 router.get("/", getProudcts);
